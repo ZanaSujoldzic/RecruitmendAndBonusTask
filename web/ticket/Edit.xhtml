@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTicketTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTicketLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{ticketController.selected.id}" title="#{bundle.EditTicketTitle_id}" required="true" requiredMessage="#{bundle.EditTicketRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditTicketLabel_timeOfCreatingTicket}" for="timeOfCreatingTicket" />
+                    <h:inputText id="timeOfCreatingTicket" value="#{ticketController.selected.timeOfCreatingTicket}" title="#{bundle.EditTicketTitle_timeOfCreatingTicket}" required="true" requiredMessage="#{bundle.EditTicketRequiredMessage_timeOfCreatingTicket}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTicketLabel_deviceId}" for="deviceId" />
+                    <h:selectOneMenu id="deviceId" value="#{ticketController.selected.deviceId}" title="#{bundle.EditTicketTitle_deviceId}" required="true" requiredMessage="#{bundle.EditTicketRequiredMessage_deviceId}">
+                        <f:selectItems value="#{deviceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditTicketLabel_stakeId}" for="stakeId" />
+                    <h:selectOneMenu id="stakeId" value="#{ticketController.selected.stakeId}" title="#{bundle.EditTicketTitle_stakeId}" required="true" requiredMessage="#{bundle.EditTicketRequiredMessage_stakeId}">
+                        <f:selectItems value="#{stakeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{ticketController.update}" value="#{bundle.EditTicketSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTicketViewLink}"/>
+                <br />
+                <h:commandLink action="#{ticketController.prepareList}" value="#{bundle.EditTicketShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTicketIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
